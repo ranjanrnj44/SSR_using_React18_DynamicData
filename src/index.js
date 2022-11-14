@@ -7,6 +7,7 @@ import App from "./App";
 const container = document.getElementById("root");
 //stringified attribute
 let userData = container.getAttribute("fetchedData");
+console.log(userData);
 let colorData = container.getAttribute("colorData");
 //hydrateRoot - To obtain SSR, for selective hydration
 hydrateRoot(

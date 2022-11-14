@@ -41,14 +41,14 @@ app.get("/apicall", async (req, res, next) => {
   //fetch userData
   let apiAsString;
   let fetchedData = [];
-  await fetch("https://reqres.in/api/users?page=2", {
+  await fetch("https://jsonplaceholder.typicode.com/users", {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   })
     .then((response) => response.json())
     .then((item) => {
-      fetchedData = item.data;
-      apiAsString = item.data;
+      fetchedData = item;
+      apiAsString = item;
     });
 
   //reading our build index.html file
@@ -67,16 +67,23 @@ app.get("/apicall", async (req, res, next) => {
         onShellReady() {
           // If something errored before we started streaming, we set the error code appropriately.
           function addData(data) {
-            let splitData = data.split(""); //<div id="root" >
-            //below we are passing fetched datas and adding it as attributes to <div id="root" ...>
-            splitData.splice(
-              14,
-              0,
-              ` fetchedData=${JSON.stringify(
+            let attriStr = data.replace(
+              'id="root"',
+              `id="root" fetchedData='${JSON.stringify(
                 apiAsString
-              )} colorData=${JSON.stringify(clrAsString)}`
+              )}' colorData='${JSON.stringify(clrAsString)}'`
             );
-            let modifiedAttr = splitData.join("");
+            //let splitData = data.split(""); //<div id="root" >
+            //below we are passing fetched datas and adding it as attributes to <div id="root" ...>
+            // splitData.splice(
+            //   14,
+            //   0,
+            //   ` fetchedData=${JSON.stringify(
+            //     apiAsString
+            //   )} colorData=${JSON.stringify(clrAsString)}`
+            // );
+            // let modifiedAttr = splitData.join("");
+            let modifiedAttr = attriStr;
             return modifiedAttr;
           }
 

@@ -32,6 +32,7 @@ const UserListSSR = lazy(() => import("./components/UserListSSR.js"));
 //app
 export default function App(props) {
   const { fetchedData, colorData } = props;
+  console.log(fetchedData);
   return (
     <div className="App">
       <NavBar />
